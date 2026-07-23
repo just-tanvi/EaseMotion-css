@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pure CSS 3D Flip Glassmorphism Popover - EaseMotion</title>
+  <meta name="description" content="A production-quality, accessible Pure CSS Animated Popover with 3D Flip animation and Glassmorphism visual style.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient background elements to demonstrate glass backdrop blur depth -->
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="glow-orb orb-primary"></div>
+    <div class="glow-orb orb-secondary"></div>
+    <div class="glow-orb orb-accent"></div>
+    <div class="bg-grid-pattern"></div>
+  </div>
+
+  <div class="stage">
+    <!-- Header banner -->
+    <header class="demo-header">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Pure CSS • Zero JavaScript
+      </div>
+      <h1 class="demo-title">3D Flip Glassmorphism Popover</h1>
+      <p class="demo-subtitle">Interactive profile card popover with perspective depth & macOS-inspired glass aesthetic</p>
+    </header>
+
+    <!-- Main Interactive Popover Container -->
+    <div class="popover-wrapper">
+      <!-- 
+        Pure CSS Checkbox Hack
+        - "checked" attribute ensures the popover is open by default on page load for instant screenshot/PR capture
+        - Keyboard users can focus and toggle via Spacebar or Enter key
+      -->
+      <input 
+        type="checkbox" 
+        id="popover-toggle" 
+        class="popover-checkbox sr-only" 
+        checked 
+        aria-label="Toggle User Profile Popover"
+      >
+
+      <!-- Accessible Trigger Button -->
+      <label 
+        for="popover-toggle" 
+        class="popover-trigger" 
+        role="button" 
+        tabindex="0" 
+        aria-expanded="true" 
+        aria-controls="popover-card"
+        title="Click or press Space to toggle popover"
+      >
+        <span class="trigger-avatar-frame">
+          <img 
+            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" 
+            alt="Sophia Chen profile" 
+            class="trigger-avatar" 
+            width="32" 
+            height="32"
+          >
+          <span class="online-indicator"></span>
+        </span>
+        <span class="trigger-label">Sophia Chen</span>
+        <svg class="trigger-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </label>
+
+      <!-- Glassmorphism Popover Card -->
+      <div 
+        class="popover-card" 
+        id="popover-card" 
+        role="dialog" 
+        aria-label="Sophia Chen User Profile Card"
+      >
+        <!-- Arrow pointer -->
+        <div class="popover-arrow" aria-hidden="true"></div>
+
+        <!-- Card Header Banner -->
+        <div class="card-header">
+          <div class="header-pattern"></div>
+          <span class="pro-tag">PRO</span>
+        </div>
+
+        <!-- Card Main Content -->
+        <div class="card-body">
+          <div class="profile-meta">
+            <div class="avatar-wrapper">
+              <img 
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=160&q=80" 
+                alt="Sophia Chen" 
+                class="profile-avatar" 
+                width="64" 
+                height="64"
+              >
+              <span class="status-ring" title="Online now"></span>
+            </div>
+            <div class="identity-group">
+              <h2 class="profile-name">Sophia Chen</h2>
+              <span class="profile-handle">@sophiachen</span>
+              <p class="profile-role">Design System Lead @ EaseMotion</p>
+            </div>
+          </div>
+
+          <p class="profile-bio">
+            Crafting fluid 3D micro-interactions, CSS motion systems & accessible web interfaces.
+          </p>
+
+          <!-- Metrics / Statistics -->
+          <div class="profile-stats">
+            <div class="stat-cell">
+              <span class="stat-number">14.2k</span>
+              <span class="stat-caption">Followers</span>
+            </div>
+            <div class="stat-divider" aria-hidden="true"></div>
+            <div class="stat-cell">
+              <span class="stat-number">48</span>
+              <span class="stat-caption">Projects</span>
+            </div>
+            <div class="stat-divider" aria-hidden="true"></div>
+            <div class="stat-cell">
+              <span class="stat-number">4.9 ★</span>
+              <span class="stat-caption">Rating</span>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="profile-actions">
+            <label for="popover-toggle" class="btn btn-primary" tabindex="0" role="button">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="8.5" cy="7" r="4"></circle>
+                <line x1="20" y1="8" x2="20" y2="14"></line>
+                <line x1="23" y1="11" x2="17" y2="11"></line>
+              </svg>
+              Follow
+            </label>
+            <label for="popover-toggle" class="btn btn-secondary" tabindex="0" role="button">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              Message
+            </label>
+          </div>
+        </div>
+
+        <!-- Card Footer -->
+        <footer class="card-footer">
+          <span class="activity-status">
+            <span class="activity-dot"></span> Active 3m ago
+          </span>
+          <span class="footer-link">
+            View Details
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </span>
+        </footer>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

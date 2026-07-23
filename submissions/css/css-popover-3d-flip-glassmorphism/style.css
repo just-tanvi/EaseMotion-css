@@ -1,0 +1,650 @@
+/* ==========================================================================
+   PURE CSS 3D FLIP GLASSMORPHISM POPOVER
+   Library: EaseMotion CSS
+   Track: Pure CSS / HTML Showcase
+   ========================================================================== */
+
+/* ==========================================================================
+   1. VARIABLES
+   ========================================================================== */
+:root {
+  /* Motion & Animation Timing */
+  --popover-duration: 480ms;
+  --popover-easing: cubic-bezier(0.16, 1, 0.3, 1);
+  --popover-scale: 0.92;
+  --popover-rotate: -22deg;
+  --popover-translate-y: 14px;
+  --popover-perspective: 1200px;
+  --popover-transform-origin: top center;
+
+  /* Glassmorphism & Surface Tokens */
+  --popover-width: 350px;
+  --popover-radius: 22px;
+  --popover-blur: 24px;
+  --popover-saturate: 180%;
+  --popover-bg: rgba(255, 255, 255, 0.65);
+  --popover-bg-fallback: rgba(248, 250, 252, 0.96);
+  --popover-border: 1px solid rgba(255, 255, 255, 0.55);
+  --popover-shadow: 
+    0 24px 50px -12px rgba(15, 23, 42, 0.28),
+    0 10px 20px -5px rgba(15, 23, 42, 0.12),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.85);
+
+  /* Color System */
+  --color-bg-dark: #0b0f19;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #64748b;
+  --color-accent: #6366f1;
+  --color-accent-hover: #4f46e5;
+  --color-accent-light: rgba(99, 102, 241, 0.1);
+  --color-online: #10b981;
+  --color-border-subtle: rgba(226, 232, 240, 0.7);
+  --color-card-bg-subtle: rgba(241, 245, 249, 0.5);
+
+  /* Typography */
+  --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* ==========================================================================
+   2. RESET
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font-family);
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Accessible Visually Hidden Utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ==========================================================================
+   3. LAYOUT
+   ========================================================================== */
+/* Ambient Background Lighting for Glass Depth */
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #090d16 100%);
+}
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.6;
+}
+
+.orb-primary {
+  width: 450px;
+  height: 450px;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, #6366f1 0%, rgba(99, 102, 241, 0) 70%);
+}
+
+.orb-secondary {
+  width: 350px;
+  height: 350px;
+  top: 250px;
+  left: 20%;
+  background: radial-gradient(circle, #ec4899 0%, rgba(236, 72, 153, 0) 70%);
+}
+
+.orb-accent {
+  width: 380px;
+  height: 380px;
+  top: 200px;
+  right: 20%;
+  background: radial-gradient(circle, #3b82f6 0%, rgba(59, 130, 246, 0) 70%);
+}
+
+.bg-grid-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.4;
+}
+
+/* Main Viewport Container */
+.stage {
+  position: relative;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: max(40px, 6vh);
+}
+
+/* Demo Header */
+.demo-header {
+  text-align: center;
+  margin-bottom: 32px;
+  color: #ffffff;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #e2e8f0;
+  margin-bottom: 12px;
+}
+
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-online);
+  box-shadow: 0 0 8px var(--color-online);
+}
+
+.demo-title {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+
+.demo-subtitle {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  max-width: 480px;
+  line-height: 1.5;
+}
+
+/* Popover Perspective Wrapper */
+.popover-wrapper {
+  position: relative;
+  perspective: var(--popover-perspective);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ==========================================================================
+   4. BUTTON
+   ========================================================================== */
+/* Popover Trigger Label Button */
+.popover-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px 8px 10px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition: all 250ms ease;
+}
+
+.popover-trigger:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.popover-trigger:active {
+  transform: translateY(0);
+}
+
+/* Trigger Keyboard Focus Styles */
+.popover-checkbox:focus-visible ~ .popover-trigger,
+.popover-trigger:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+.trigger-avatar-frame {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: visible;
+}
+
+.trigger-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.online-indicator {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: var(--color-online);
+  border: 2px solid #0f172a;
+}
+
+.trigger-icon {
+  transition: transform 350ms var(--popover-easing);
+  opacity: 0.8;
+}
+
+/* Checkbox Toggle States */
+.popover-checkbox:checked ~ .popover-trigger {
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.popover-checkbox:checked ~ .popover-trigger .trigger-icon {
+  transform: rotate(180deg);
+}
+
+/* Action Buttons inside Card */
+.profile-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 200ms ease;
+  user-select: none;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+}
+
+.btn-primary:hover {
+  background: var(--color-accent-hover);
+  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.btn-secondary:hover {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   5. POPOVER
+   ========================================================================== */
+.popover-card {
+  position: absolute;
+  top: calc(100% + 14px);
+  width: var(--popover-width);
+  background-color: var(--popover-bg-fallback);
+  background: var(--popover-bg);
+  backdrop-filter: blur(var(--popover-blur)) saturate(var(--popover-saturate));
+  -webkit-backdrop-filter: blur(var(--popover-blur)) saturate(var(--popover-saturate));
+  border: var(--popover-border);
+  border-radius: var(--popover-radius);
+  box-shadow: var(--popover-shadow);
+  transform-origin: var(--popover-transform-origin);
+  z-index: 100;
+  overflow: hidden;
+
+  /* Closed Initial 3D State */
+  transform: rotateX(var(--popover-rotate)) translateY(var(--popover-translate-y)) scale(var(--popover-scale));
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  /* Transition for 3D flip */
+  transition: 
+    transform var(--popover-duration) var(--popover-easing),
+    opacity var(--popover-duration) var(--popover-easing),
+    visibility var(--popover-duration) var(--popover-easing);
+}
+
+/* Arrow Pointer */
+.popover-arrow {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  border-left: 1px solid rgba(255, 255, 255, 0.55);
+  border-top: 1px solid rgba(255, 255, 255, 0.55);
+  z-index: 2;
+}
+
+/* Card Header Pattern */
+.card-header {
+  position: relative;
+  height: 60px;
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+  overflow: hidden;
+}
+
+.header-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.25) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+
+.pro-tag {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* Card Content Body */
+.card-body {
+  padding: 0 20px 20px 20px;
+}
+
+.profile-meta {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  margin-top: -28px;
+  margin-bottom: 14px;
+}
+
+.avatar-wrapper {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+  flex-shrink: 0;
+}
+
+.profile-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.status-ring {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--color-online);
+  border: 2px solid #ffffff;
+}
+
+.identity-group {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 2px;
+}
+
+.profile-name {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.25;
+}
+
+.profile-handle {
+  font-size: 0.8125rem;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.profile-role {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+.profile-bio {
+  font-size: 0.84375rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  margin-bottom: 16px;
+}
+
+/* Stats Section */
+.profile-stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 0;
+  background: var(--color-card-bg-subtle);
+  border-radius: 14px;
+  border: 1px solid var(--color-border-subtle);
+}
+
+.stat-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-number {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.stat-caption {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-top: 1px;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 24px;
+  background-color: var(--color-border-subtle);
+}
+
+/* Card Footer */
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.4);
+  border-top: 1px solid var(--color-border-subtle);
+  font-size: 0.75rem;
+}
+
+.activity-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.activity-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-online);
+}
+
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.footer-link:hover {
+  color: var(--color-accent-hover);
+}
+
+/* ==========================================================================
+   6. ANIMATION
+   ========================================================================== */
+/* Pure CSS Toggle Trigger: OPEN State */
+.popover-checkbox:checked ~ .popover-card {
+  transform: rotateX(0deg) translateY(0) scale(1);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* ==========================================================================
+   7. RESPONSIVE
+   ========================================================================== */
+@media (max-width: 480px) {
+  :root {
+    --popover-width: calc(100vw - 32px);
+  }
+
+  .stage {
+    padding-top: 24px;
+  }
+
+  .demo-title {
+    font-size: 1.6rem;
+  }
+
+  .demo-subtitle {
+    font-size: 0.875rem;
+    padding: 0 16px;
+  }
+
+  .popover-card {
+    left: 50%;
+    transform-origin: top center;
+    /* Maintain centered alignment on narrow screens */
+    margin-left: calc(-1 * var(--popover-width) / 2);
+  }
+
+  .popover-checkbox:checked ~ .popover-card {
+    transform: rotateX(0deg) translateY(0) scale(1);
+  }
+}
+
+/* ==========================================================================
+   8. REDUCED MOTION
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .popover-card {
+    transform: none !important;
+    transition: opacity var(--popover-duration) ease, visibility var(--popover-duration) ease !important;
+  }
+
+  .popover-trigger,
+  .trigger-icon,
+  .btn {
+    transition: opacity var(--popover-duration) ease !important;
+    transform: none !important;
+  }
+
+  .popover-checkbox:checked ~ .popover-trigger .trigger-icon {
+    transform: none !important;
+  }
+}
+
+/* Graceful degradation fallback if backdrop-filter is unsupported */
+@supports not (backdrop-filter: blur(1px)) {
+  .popover-card {
+    background-color: #ffffff;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  }
+
+  .popover-trigger {
+    background: #1e293b;
+  }
+}
