@@ -21,11 +21,11 @@ A production-grade, accessible **Pure CSS Animated Popover** component featuring
 ## 📁 Folder Structure
 
 ```
-submissions/css/css-popover-3d-flip-glassmorphism/
-├── index.html       # Self-contained HTML markup & accessible popover card
+submissions/examples/css-popover-3d-flip-glassmorphism/
+├── demo.html        # Self-contained HTML markup & accessible popover card
 ├── style.css        # Modular CSS with variables, 3D flip motion & glassmorphism
 ├── README.md        # Technical documentation & customization guide
-└── preview.png      # Preview image reference
+└── preview.png      # Real screenshot reference
 ```
 
 ---
@@ -57,7 +57,7 @@ All motion and visual parameters are exposed in `:root` for customization withou
 An invisible, accessible `<input type="checkbox" id="popover-toggle">` controls the open/closed state.
 When combined with a matching `<label for="popover-toggle">`:
 * Toggling the checkbox state modifies the sibling selector `.popover-checkbox:checked ~ .popover-card`.
-* Having `checked` on the HTML element by default displays the popover immediately upon opening `index.html`.
+* Having `checked` on the HTML element by default displays the popover immediately upon opening `demo.html`.
 
 ### 2. 3D Perspective & Motion Mechanics
 The parent `.popover-wrapper` sets up `perspective: var(--popover-perspective)`.
