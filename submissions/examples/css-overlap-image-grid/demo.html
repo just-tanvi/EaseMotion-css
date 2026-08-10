@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pure CSS Overlap Image Grid - EaseMotion</title>
+  <meta name="description" content="A responsive, accessible Pure CSS Overlap Image Grid featuring multi-layer z-index depth, interactive focus elevation, and graceful mobile adaptation without JavaScript.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="demo-stage">
+    <!-- Header Showcase -->
+    <header class="demo-header">
+      <div class="demo-badge">
+        <span class="badge-dot" aria-hidden="true"></span>
+        Pure CSS • Zero JavaScript • Accessible
+      </div>
+      <h1 class="demo-title">CSS Overlap Image Grid</h1>
+      <p class="demo-subtitle">
+        Asymmetrical image arrangements using CSS Grid tracks, dynamic <code>z-index</code> layers, custom property depths, and smooth keyboard focus states.
+      </p>
+    </header>
+
+    <!-- Section 1: Asymmetrical Hero Overlap Grid -->
+    <section class="demo-section" aria-labelledby="section-hero-title">
+      <div class="section-header">
+        <h2 id="section-hero-title" class="section-title">01. Asymmetrical Hero Grid</h2>
+        <p class="section-desc">Overlapping Grid tracks with multi-layered depth and hover/focus foreground elevation.</p>
+      </div>
+
+      <div class="overlap-grid overlap-grid--hero" role="region" aria-label="Featured Showcase Overlap Grid">
+        <!-- Card 1: Background Left -->
+        <article class="overlap-card overlap-card--1" style="--layer: 1; --span-col: 1 / 7; --span-row: 1 / 7;">
+          <a href="#alpine-solitude" class="overlap-card__link" aria-label="View Alpine Solitude photo details">
+            <figure class="overlap-card__figure">
+              <img 
+                src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80" 
+                alt="Starry night sky above majestic snow-capped mountain peaks" 
+                class="overlap-card__img"
+                loading="lazy"
+                width="800"
+                height="600"
+              >
+              <figcaption class="overlap-card__caption">
+                <span class="caption-tag">Landscape</span>
+                <span class="caption-title">Alpine Solitude</span>
+              </figcaption>
+            </figure>
+          </a>
+        </article>
+
+        <!-- Card 2: Center Hero Focal Point -->
+        <article class="overlap-card overlap-card--2" style="--layer: 4; --span-col: 4 / 10; --span-row: 2 / 8;">
+          <a href="#urban-horizon" class="overlap-card__link" aria-label="View Urban Horizon photo details">
+            <figure class="overlap-card__figure">
+              <img 
+                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" 
+                alt="Modern glass skyscraper shooting up into clear blue sky" 
+                class="overlap-card__img"
+                loading="lazy"
+                width="800"
+                height="600"
+              >
+              <figcaption class="overlap-card__caption">
+                <span class="caption-tag">Architecture</span>
+                <span class="caption-title">Urban Horizon</span>
+              </figcaption>
+            </figure>
+          </a>
+        </article>
+
+        <!-- Card 3: Top Right Mid-Layer -->
+        <article class="overlap-card overlap-card--3" style="--layer: 2; --span-col: 8 / 13; --span-row: 1 / 6;">
+          <a href="#nordic-sanctuary" class="overlap-card__link" aria-label="View Nordic Sanctuary photo details">
+            <figure class="overlap-card__figure">
+              <img 
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" 
+                alt="Sunlit minimalist interior lounge with warm wood aesthetics" 
+                class="overlap-card__img"
+                loading="lazy"
+                width="800"
+                height="600"
+              >
+              <figcaption class="overlap-card__caption">
+                <span class="caption-tag">Interior</span>
+                <span class="caption-title">Nordic Sanctuary</span>
+              </figcaption>
+            </figure>
+          </a>
+        </article>
+
+        <!-- Card 4: Bottom Left Accent -->
+        <article class="overlap-card overlap-card--4" style="--layer: 3; --span-col: 2 / 6; --span-row: 6 / 11;">
+          <a href="#pacific-wave" class="overlap-card__link" aria-label="View Pacific Wave photo details">
+            <figure class="overlap-card__figure">
+              <img 
+                src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" 
+                alt="Turquoise ocean waves lapping onto golden sand shore" 
+                class="overlap-card__img"
+                loading="lazy"
+                width="800"
+                height="600"
+              >
+              <figcaption class="overlap-card__caption">
+                <span class="caption-tag">Nature</span>
+                <span class="caption-title">Pacific Wave</span>
+              </figcaption>
+            </figure>
+          </a>
+        </article>
+
+        <!-- Card 5: Bottom Right Foreground -->
+        <article class="overlap-card overlap-card--5" style="--layer: 5; --span-col: 7 / 12; --span-row: 6 / 11;">
+          <a href="#golden-canopy" class="overlap-card__link" aria-label="View Golden Canopy photo details">
+            <figure class="overlap-card__figure">
+              <img 
+                src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80" 
+                alt="Golden sunlight filtering through dense autumn forest canopy" 
+                class="overlap-card__img"
+                loading="lazy"
+                width="800"
+                height="600"
+              >
+              <figcaption class="overlap-card__caption">
+                <span class="caption-tag">Wilderness</span>
+                <span class="caption-title">Golden Canopy</span>
+              </figcaption>
+            </figure>
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Section 2: Cascading Card Deck -->
+    <section class="demo-section" aria-labelledby="section-deck-title">
+      <div class="section-header">
+        <h2 id="section-deck-title" class="section-title">02. Cascading Card Deck</h2>
+        <p class="section-desc">Overlapping stack arrangement with rotational offsets and progressive layer elevation.</p>
+      </div>
+
+      <div class="overlap-deck" role="region" aria-label="Cascading Card Deck Showcase">
+        <article class="deck-card" style="--stack-order: 1; --rotate-deg: -6deg; --shift-x: -25px;">
+          <a href="#quantum-core" class="overlap-card__link" aria-label="View Quantum Core photo details">
+            <figure class="overlap-card__figure">
+              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80" alt="Futuristic glowing microchip circuit details" class="overlap-card__img" width="600" height="400">
+              <figcaption class="overlap-card__caption">
+                <span class="caption-title">Quantum Core</span>
+              </figcaption>
+            </figure>
+          </a>
+        </article>
+
+        <article class="deck-card" style="--stack-order: 2; --rotate-deg: -2deg; --shift-x: -8px;">
+          <a href="#cyber-city" class="overlap-card__link" aria-label="View Cyber City photo details">
+            <figure class="overlap-card__figure">
+              <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=600&q=80" alt="Vibrant neon lights reflecting on wet city streets at dusk" class="overlap-card__img" width="600" height="400">
+              <figcaption class="overlap-card__caption">
+                <span class="caption-title">Cyber City</span>
+              </figcaption>
+            </figure>
+          </a>
+        </article>
+
+        <article class="deck-card" style="--stack-order: 3; --rotate-deg: 3deg; --shift-x: 10px;">
+          <a href="#brutalist-geometry" class="overlap-card__link" aria-label="View Brutalist Geometry photo details">
+            <figure class="overlap-card__figure">
+              <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=600&q=80" alt="Sharp geometric concrete architecture with dramatic shadows" class="overlap-card__img" width="600" height="400">
+              <figcaption class="overlap-card__caption">
+                <span class="caption-title">Brutalist Geometry</span>
+              </figcaption>
+            </figure>
+          </a>
+        </article>
+
+        <article class="deck-card" style="--stack-order: 4; --rotate-deg: 7deg; --shift-x: 28px;">
+          <a href="#misty-pines" class="overlap-card__link" aria-label="View Misty Pines photo details">
+            <figure class="overlap-card__figure">
+              <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=600&q=80" alt="Dense pine tree forest shrouded in atmospheric morning fog" class="overlap-card__img" width="600" height="400">
+              <figcaption class="overlap-card__caption">
+                <span class="caption-title">Misty Pines</span>
+              </figcaption>
+            </figure>
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="demo-footer">
+      <p>EaseMotion CSS • Pure CSS Overlap Image Grid Component</p>
+    </footer>
+  </main>
+</body>
+</html>
